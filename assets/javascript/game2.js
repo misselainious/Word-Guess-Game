@@ -1,10 +1,3 @@
-var img = document.createElement("img");
- 
-img.src = "https://media-cdn.tripadvisor.com/media/photo-s/12/f5/f1/8d/eiffel-tower-summit-priority.jpg";
-var src = document.getElementById("eiffel");
-
-
-
 // Creating variabless to hold stats
 var guessesRemaining = 12;
 var wins = 0;
@@ -38,25 +31,17 @@ console.log(answerArray);
 document.onkeyup = event => {
     // user guesses by hitting key
     var userGuess = event.key;
-
-    if(guessBank.includes(!userGuess)){
+    if(!guessBank.includes(userGuess)){
     pastGuesses=pastGuesses + event.key + ", ";
     }
-    // if(guessBank.includes(userGuess)){
-    //     pastGuesses=pastGuesses;
-    // }
+    else if(guessBank.includes(userGuess)){
+        pastGuesses=pastGuesses;
+    }
     
 //if the user Guess is not in the word, guesses go down by 1
     if((!chosenWord.includes(userGuess)) && (!guessBank.includes(userGuess))){
         guessesRemaining--;
     }
-
-    if(guessesRemaining === 0){
-        losses++;
-        alert("Awww...that one was hard...you lose.")
-    }
-   
-    
 
     //Loop for finding correct characters
 for(i=0; i<chosenWord.length; i++){
@@ -67,34 +52,26 @@ for(i=0; i<chosenWord.length; i++){
     } 
    
     else if ((chosenWord.charAt(i)) !== userGuess){
-        guessBank.push(userGuess);
         answerArray[i] = "_"
     }
     if ((chosenWord.charAt(i)) === " "){
         answerArray[i] = " "
     }
-   
+    
 }
 
     //choosenWordArray[i] = userGuess
     
-    var filteredArray = guessBank.filter(function(item, pos){
-        return guessBank.indexOf(item)== pos; 
-      });
-      
-      console.log( "filtered array" + filteredArray );
+
 
 
 
 console.log("chosen word: " + chosenWord);
 console.log("user guess: " + userGuess);
+console.log("guess Bank: " + guessBank);
 
 
 
-if(!answerArray.includes("_")){
-    wins++;
-    alert("Wow! You're super smart! You win!");
-}
 
 
 
@@ -102,14 +79,14 @@ if(!answerArray.includes("_")){
 
 userChoiceText.textContent = "You chose: " + userGuess;
 chosenWordText.textContent = "The computer chose: " + chosenWord;
-pastGuessesText.textContent = "Your previous guesses: " + filteredArray;
+pastGuessesText.textContent = "Your previous guesses: " + pastGuesses;
 // displayWordText.textContent = "Answer: " + answerArray;
 guessesRemainingText.textContent = "Your guesses remaining: " + guessesRemaining;
 winsText.textContent = "wins: " + wins;
 lossesText.textContent = "losses: " + losses;
 // hiddenWordText.textContent = (spaces);
 // splitWordText.textContent = "split word: " + splitWord;
-test2Text.innerHTML = "Word You're guessing: " + answerArray;
+test2Text.innerHTML = "answer arrary: " + answerArray;
 
 
 
